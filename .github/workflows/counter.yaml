@@ -1,0 +1,15 @@
+name: counter simulation
+on: [push, workflow_dispatch]
+jobs:
+  simulate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Simulate the saved Wokwi netlist
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y iverilog
+          id=$(python -c "import yaml; print(yaml.safe_load(open('info.yaml'))['project']['wokwi_id'])")
+          curl --fail --retry 3 "https://wokwi.com/api/projects/$id/verilog" -o /tmp/counter.v
+          iverilog -g2012 -s counter_tb -o /tmp/counter_sim src/cells.v /tmp/counter.v test/counter_tb.v
+          vvp /tmp/counter_sim

@@ -1,20 +1,13 @@
-<!---
-
-This file is used to generate your project datasheet. Please fill in the information below and delete any unused
-sections.
-
-You can also include images in this folder and reference them in the markdown. Each image must be less than
-512 kb in size, and the combined size of all images must be less than 1 MB.
--->
-
 ## How it works
 
-Explain how your project works
+Four flip-flops hold a binary count on outputs 3 through 0, with output 0 as the least significant bit. Each rising clock edge increments the count modulo 16. If reset is low at the edge, the counter loads zero. Outputs 7 through 4 are tied low. The dedicated data inputs and bidirectional pins are unused.
 
 ## How to test
 
-Explain how to use your project
+Select the project and use a manual clock, or a slow clock such as 1 Hz to see individual counts. Hold reset low for one rising edge. All four count outputs should be low. Release reset and pulse the clock. The first three readings are 0001, 0010 and 0011. The fifteenth pulse gives 1111 and the sixteenth gives 0000. Assert reset partway through a count and check that the outputs clear on the next rising edge.
+
+In Wokwi the count outputs drive segments A through D of the display. Read the segments as four binary indicators, with A representing 1 and D representing 8.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+The Wokwi project includes the clock, reset button and display. On a demo board, use the onboard controls and output indicators.
